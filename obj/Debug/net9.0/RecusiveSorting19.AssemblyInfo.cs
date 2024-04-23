@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RecusiveSorting19")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa1b46521f92cc7460d2afccc470cd4a0faf899b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6625d84fa3a88786660e90e1a91c0df2d970b441")]
 [assembly: System.Reflection.AssemblyProductAttribute("RecusiveSorting19")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RecusiveSorting19")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

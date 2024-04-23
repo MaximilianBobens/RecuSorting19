@@ -1,20 +1,99 @@
-﻿using System.Diagnostics;
-
-namespace RecusiveSorting19;
+﻿using System;
+using System.Diagnostics;
 
 public class SortingAlgo
 {
-    public static void QuickSort(int[] array, int left, int right)
+    public string SelectionSort(int[] array)
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        int n = array.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++)
+            {
+                if (array[j] < array[minIndex])
+                    minIndex = j;
+            }
+
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+
+        sw.Stop();
+        return "SelectionSort: " + sw.ElapsedMilliseconds + "ms";
+    }
+
+    public string InsertionSort(int[] array)
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        int n = array.Length;
+        for (int i = 1; i < n; i++)
+        {
+            int key = array[i];
+            int j = i - 1;
+
+            while (j >= 0 && array[j] > key)
+            {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            array[j + 1] = key;
+        }
+
+        sw.Stop();
+        return "InsertionSort: " + sw.ElapsedMilliseconds + "ms";
+    }
+
+    public string MergeSort(int[] array, int left, int right)
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        MergeSortRecursive(array, left, right);
+
+        sw.Stop();
+        return "MergeSort: " + sw.ElapsedMilliseconds + "ms";
+    }
+
+    private void MergeSortRecursive(int[] array, int left, int right)
+    {
+        if (left < right)
+        {
+            int mid = (left + right) / 2;
+            MergeSortRecursive(array, left, mid);
+            MergeSortRecursive(array, mid + 1, right);
+            Merge(array, left, mid, right);
+        }
+    }
+
+    public string QuickSort(int[] array, int left, int right)
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        QuickSortRecursive(array, left, right);
+
+        sw.Stop();
+        return "QuickSort: " + sw.ElapsedMilliseconds + "ms";
+    }
+
+    private void QuickSortRecursive(int[] array, int left, int right)
     {
         if (left < right)
         {
             int pivotIndex = Partition(array, left, right);
-            QuickSort(array,left,pivotIndex-1);
-            QuickSort(array,pivotIndex+1,right);
+            QuickSortRecursive(array, left, pivotIndex - 1);
+            QuickSortRecursive(array, pivotIndex + 1, right);
         }
     }
-    
-    public static int Partition(int[] array, int left, int right)
+
+    private int Partition(int[] array, int left, int right)
     {
         int pivot = array[right];
         int i = left - 1;
@@ -31,26 +110,8 @@ public class SortingAlgo
         Swap(array, i + 1, right);
         return i + 1;
     }
-    
-    public static void Swap(int[] array, int i, int j)
-    {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    
-    public static void MergeSort(int[] array, int left, int right)
-    {
-        if (left < right)
-        {
-            int mid = (left + right) / 2;
-            MergeSort(array, left, mid);
-            MergeSort(array, mid + 1, right);
-            Merge(array, left, mid, right);
-        }
-    }
 
-    private static void Merge(int[] array, int left, int mid, int right)
+    private void Merge(int[] array, int left, int mid, int right)
     {
         int n1 = mid - left + 1;
         int n2 = right - mid;
@@ -75,6 +136,7 @@ public class SortingAlgo
                 array[k] = R[j];
                 j++;
             }
+
             k++;
         }
 
@@ -93,24 +155,10 @@ public class SortingAlgo
         }
     }
 
-  
-    public static void TestSortingAlgorithmWithArraysOfSize()
+    private void Swap(int[] array, int i, int j)
     {
-        Stopwatch stopwatch = Stopwatch.StartNew();
-        stopwatch.Stop();
-        Console.WriteLine("Time elapsed: " + stopwatch.ElapsedMilliseconds + " ms");
-        Random r = new Random();
-        int size = r.Next(1, 100);
-        int[] array = new int[size];
-        stopwatch = Stopwatch.StartNew();
-        SortingAlgo.QuickSort(array, 0, array.Length - 1);
-        stopwatch.Stop();
-        Console.WriteLine($"QuickSort for array size {size}: {stopwatch.ElapsedMilliseconds} ms");
-
-        // Wiederholen Sie den Vorgang für MergeSort und andere Algorithmen
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
-
-    
-
 }
-
